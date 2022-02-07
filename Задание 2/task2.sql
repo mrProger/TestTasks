@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 07 2022 г., 12:23
+-- Время создания: Фев 07 2022 г., 14:10
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -37,7 +37,9 @@ CREATE TABLE `departament` (
 --
 
 INSERT INTO `departament` (`ID`, `NAME`) VALUES
-(4, 'test');
+(1, 'departament1'),
+(2, 'departament2'),
+(3, 'departament3');
 
 -- --------------------------------------------------------
 
@@ -67,20 +69,43 @@ INSERT INTO `employee` (`ID`, `DEPARTAMENT_ID`, `CHIEF_ID`, `NAME`, `SALARY`) VA
 --
 
 --
+-- Индексы таблицы `departament`
+--
+ALTER TABLE `departament`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Индексы таблицы `employee`
 --
 ALTER TABLE `employee`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_DEPARTAMENT` (`DEPARTAMENT_ID`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
+-- AUTO_INCREMENT для таблицы `departament`
+--
+ALTER TABLE `departament`
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT для таблицы `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `employee`
+--
+ALTER TABLE `employee`
+  ADD CONSTRAINT `FK_DEPARTAMENT` FOREIGN KEY (`DEPARTAMENT_ID`) REFERENCES `departament` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
